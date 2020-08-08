@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using UmidShop.ADOConfig;
 using UmidShop.Entities;
 using UmidShop.Models;
 
@@ -42,16 +44,10 @@ namespace UmidShop.Controllers
         {
             ProductDetailsModel model = new ProductDetailsModel();
             model.AdditionalImage = new List<string>();
-            var conn = context.Database.GetDbConnection();
-            await conn.OpenAsync();
-            var command = conn.CreateCommand();
             string query = @$"SELECT p.*,pim.ImageUrl as AdditionalImage 
                             FROM Products p left join ProductImages pim on p.Id = pim.ProductId  
                             WHERE p.Id={id}";
-            command.CommandText = query;
-            var reader = await command.ExecuteReaderAsync();
-            DataTable dt = new DataTable();
-            dt.Load(reader);
+            var dt = await Databases.Select(query, context);
             if (dt.Rows.Count > 0)
             {
                 foreach (DataRow row in dt.Rows)
