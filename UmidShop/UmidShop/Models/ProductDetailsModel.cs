@@ -15,5 +15,8 @@ namespace UmidShop.Models
         public List<string> AdditionalImage { get; set; }
         public decimal Price { get; set; }
         public int Discount { get; set; }
+        public string Model { get; set; }
+        public int StockAmount { get; set; }
+        public string Shipping { get; set; }
     }
 }

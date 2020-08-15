@@ -12,5 +12,6 @@ namespace UmidShop.Models
         public decimal? EndPrice { get; set; }
         public int CurrentPage { get; set; } = 1;
         public string OrderByWith { get; set; } = "Pricing";
+        public int CategoryId { get; set; }
     }
 }

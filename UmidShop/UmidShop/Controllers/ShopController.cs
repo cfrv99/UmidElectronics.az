@@ -15,17 +15,25 @@ namespace UmidShop.Controllers
     public class ShopController : Controller
     {
         private readonly AppDbContext context;
-
+        private int productCount;
         public ShopController(AppDbContext context)
         {
             this.context = context;
+            productCount = context.Products.Count();
         }
-        [HttpGet("butun-mallar")]
-        public IActionResult GetAll([FromQuery]FilterModel filterModel)
+        [HttpGet]
+        public IActionResult GetAll(int? categoryId,string orderBy,string orderByWith,decimal? startPrice,decimal? endPrice,
+            int currentPage=1)
         {
             int limit = 20;
-            var data = context.Products.Skip((filterModel.CurrentPage - 1) * limit).Take(limit).ToList();
-            if (filterModel.OrderBy == "Desc" && filterModel.OrderByWith == "Time")
+
+            var data = context.Products.ToList();
+
+            if (categoryId !=null)
+            {
+                data = data.Where(i => i.CategoryId == categoryId).ToList();
+            }
+            if (orderBy == "Desc" && orderByWith == "Time")
             {
                 data = data.OrderByDescending(i => i.CreatedDate).ToList();
             }
@@ -33,13 +41,22 @@ namespace UmidShop.Controllers
             {
                 data = data.OrderBy(i => i.Price).ToList();
             }
-            if (filterModel.StartPrice != null && filterModel.EndPrice != null)
+            if (startPrice != null && endPrice != null)
             {
-                data = data.Where(i => i.Price >= filterModel.StartPrice && i.Price <= filterModel.EndPrice).ToList();
+                data = data.Where(i => i.Price >= startPrice && i.Price <= endPrice).ToList();
             }
 
+            data = data.Skip((currentPage - 1) * limit).Take(limit).ToList();
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)productCount / limit);
+            ViewBag.CurrentPage = currentPage;
+            ViewBag.OrderBy = orderBy;
+            ViewBag.OrderByWith = orderByWith;
+            ViewBag.StartPrice = startPrice;
+            ViewBag.EndPrice = endPrice;
+            ViewBag.CategoryId = categoryId;
             return View(data);
         }
+
         public async Task<IActionResult> GetById(int? id)
         {
             ProductDetailsModel model = new ProductDetailsModel();
@@ -57,8 +74,11 @@ namespace UmidShop.Controllers
                     model.Price = Convert.ToDecimal(row["Price"]);
                     model.Desc = row["Desc"].ToString();
                     model.ImageUrl = row["ImageUrl"].ToString();
-
                     model.AdditionalImage.Add(row["AdditionalImage"].ToString());
+                    model.Model = row["Model"].ToString();
+                    model.Shipping = row["Shipping"].ToString();
+                    model.StockAmount = Convert.ToInt32(row["StockAmount"]);
+
                 }
             }
             return View(model);

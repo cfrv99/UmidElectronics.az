@@ -52,8 +52,15 @@ namespace UmidShop
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "slug",
+                    pattern: "{name}/{id}",
+                    defaults: new { controller = "Shop", action = "GetById" }
+                    );
+                endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "/",
+                    defaults: new { controller = "Shop", action = "GetAll" }
+                    );
             });
         }
     }

@@ -3,12 +3,19 @@
     ViewData["Title"] = "GetAll";
 }
 
+@await Component.InvokeAsync("CategoryList");
+<!-- Hero Section End -->
+<!-- Categories Section Begin -->
+    <div class="section-title">
+        <h2>En Yeni Mallar</h2>
+    </div>
+@await Component.InvokeAsync("Slider");
 <section class="featured spad">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>Featured Product</h2>
+                    <h2>Butun Mallar</h2>
                 </div>
                 <div class="featured__controls">
                     <ul>
@@ -28,9 +35,9 @@
                     <div class="featured__item">
                         <div class="featured__item__pic set-bg" data-setbg="/uploads/@item.ImageUrl">
                             <ul class="featured__item__pic__hover">
-                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                                <li><a href="/@Url.FriendlyUrl(item.Name)/@item.Id"><i class="fa fa-retweet"></i></a></li>
+                                @*<li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>*@
                             </ul>
                         </div>
                         <div class="featured__item__text">
@@ -43,6 +50,20 @@
             }
 
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                {
+                    <li class="page-item @(ViewBag.CurrentPage==@i?"active":"")"><a class="page-link" asp-action="GetAll"
+                                  asp-controller="Shop" asp-route-categoryId="@ViewBag.CategoryId" asp-route-startPrice="@ViewBag.StartPrice" asp-route-endPrice="@ViewBag.EndPrice" asp-route-orderBy="@ViewBag.OrderBy" asp-route-orderByWith="@ViewBag.OrderByWith" asp-route-CurrentPage="@i">@i</a></li>
+
+                }
+
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+
     </div>
 </section>
 

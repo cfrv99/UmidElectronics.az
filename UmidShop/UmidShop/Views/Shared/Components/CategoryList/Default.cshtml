@@ -1,0 +1,59 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model List<UmidShop.Entities.Category>
+
+
+<section class="hero">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="hero__categories">
+                    <div class="hero__categories__all">
+                        <i class="fa fa-bars"></i>
+                        <span>All departments</span>
+                    </div>
+                    <ul>
+                        @foreach (var item in Model)
+                        {
+                            <li><a asp-action="GetAll" asp-controller="Shop" asp-route-CategoryId="@item.Id">@item.Name</a></li>
+
+                        }
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="hero__search">
+                    @*<div class="hero__search__form">
+                        <form action="#">
+                            <div class="hero__search__categories">
+                                All Categories
+                                <span class="arrow_carrot-down"></span>
+                            </div>
+                            <input type="text" placeholder="What do yo u need?">
+                            <button type="submit" class="site-btn">SEARCH</button>
+                        </form>
+                    </div>*@
+                    <div class="hero__search__phone">
+                        <div class="hero__search__phone__icon">
+                            <i class="fa fa-phone"></i>
+                        </div>
+                        <div class="hero__search__phone__text">
+                            <h5>+65 11.188.888</h5>
+                            <span>support 24/7 time</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero__item set-bg" data-setbg="https://lh3.googleusercontent.com/Ne-hnMgwnhsJnuIDpVwLFnWwiSnvBjfpVOEWl6k1CHCarIztylXEIghkiGu6EgYHhZVzpQTY=w1080-h608-p-no-v0">
+                    <div style="background-color:#7fad39;padding:24px;border-radius:10px" class="hero__text">
+                        <span style="color:floralwhite"></span>
+                        <h2 style="color:floralwhite">Umid Electronics <br />100% Orjinal Mallar</h2>
+                        <p style="color:floralwhite">Catdirilma Pulsuz</p>
+                        <a href="#shoppingList" class="primary-btn">Alish-Verish Et</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
