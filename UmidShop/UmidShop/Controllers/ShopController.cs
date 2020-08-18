@@ -22,10 +22,10 @@ namespace UmidShop.Controllers
             productCount = context.Products.Count();
         }
         [HttpGet]
-        public IActionResult GetAll(int? categoryId,string orderBy,string orderByWith,decimal? startPrice,decimal? endPrice,
+        public IActionResult GetAll(int? categoryId,string orderBy,decimal? startPrice,decimal? endPrice, string orderByWith = "Price",
             int currentPage=1)
         {
-            int limit = 20;
+            int limit = 2;
 
             var data = context.Products.ToList();
 
@@ -37,17 +37,17 @@ namespace UmidShop.Controllers
             {
                 data = data.OrderByDescending(i => i.CreatedDate).ToList();
             }
-            else
+            if (orderBy == "Desc" && orderByWith == "Price")
             {
-                data = data.OrderBy(i => i.Price).ToList();
+                data = data.OrderByDescending(i => i.Price).ToList();
             }
             if (startPrice != null && endPrice != null)
             {
                 data = data.Where(i => i.Price >= startPrice && i.Price <= endPrice).ToList();
             }
-
+            var count = data.Count;
             data = data.Skip((currentPage - 1) * limit).Take(limit).ToList();
-            ViewBag.TotalPage = (int)Math.Ceiling((decimal)productCount / limit);
+            ViewBag.TotalPage = (int)Math.Ceiling((decimal)count / limit);
             ViewBag.CurrentPage = currentPage;
             ViewBag.OrderBy = orderBy;
             ViewBag.OrderByWith = orderByWith;

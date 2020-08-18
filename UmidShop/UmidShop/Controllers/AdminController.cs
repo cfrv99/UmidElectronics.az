@@ -70,5 +70,44 @@ namespace UmidShop.Controllers
             }
             return View();
         }
+        public IActionResult GetAll()
+        {
+            var data = context.Products.ToList();
+            return View(data);
+        }
+        public IActionResult GetAllCategories()
+        {
+            var data = context.Categories.ToList();
+            return View(data);
+        }
+        [HttpGet]
+        public IActionResult CreateCategory()
+        {
+            return View(new Category());
+        }
+        [HttpPost]
+        public IActionResult CreateCategory(Category category)
+        {
+            context.Categories.Add(category);
+            context.SaveChanges();
+            return RedirectToAction("GetAllCategories");
+        }
+        public IActionResult GetAllImages()
+        {
+            var data = context.Images.ToList();
+
+            return View(data);
+        }
+        [HttpGet]
+        public IActionResult CreateImages()
+        {
+            return View(new Images());
+        }
+        [HttpPost]
+        public IActionResult CreateImages(Images images)
+        {
+
+            return RedirectToAction("GetAllImages");
+        }
     }
 }
