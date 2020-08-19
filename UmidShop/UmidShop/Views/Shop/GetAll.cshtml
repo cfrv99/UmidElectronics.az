@@ -13,6 +13,13 @@
     <h2>En Yeni Mallar</h2>
 </div>
 @await Component.InvokeAsync("Slider");
+
+<style>
+    .overLine {
+        text-decoration-line: line-through;
+        font-size: 15px;
+    }
+</style>
 <section class="featured spad">
     <div class="container">
         <div class="row">
@@ -64,7 +71,17 @@
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#">@item.Name</a></h6>
-                            <h5>AZN @item.Price</h5>
+                            @if (item.Discount > 0)
+                            {
+                                <h5 class="overLine">AZN @item.Price</h5>
+                                <h5 style="color:red">AZN @(item.Price-Math.Round((item.Price * item.Discount) / 100))</h5>
+
+                            }
+                            else
+                            {
+                                <h5 style="color:red">AZN @item.Price</h5>
+
+                            }
                         </div>
                     </div>
                 </div>
@@ -100,7 +117,7 @@
         $valueSpan.html($value.val());
         $value.on('input change', () => {
 
-            $valueSpan.html($value.val()+' AZN');
+            $valueSpan.html($value.val() + ' AZN');
         });
     });
 </script>

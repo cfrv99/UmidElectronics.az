@@ -77,6 +77,8 @@ namespace UmidShop.Controllers
                     model.AdditionalImage.Add(row["AdditionalImage"].ToString());
                     model.Model = row["Model"].ToString();
                     model.Shipping = row["Shipping"].ToString();
+                    model.Discount = Convert.ToInt32(row["Discount"]);
+
                     model.StockAmount = Convert.ToInt32(row["StockAmount"]);
 
                 }

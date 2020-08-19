@@ -1,20 +1,22 @@
 ﻿@*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
-@model List<UmidShop.Entities.Category>
+@model List<UmidShop.Entities.Images>
 <section id="shoppingList" class="categories">
     <div class="container">
         <div class="row">
             <div class="categories__slider owl-carousel">
-                @for (int i = 0; i < 10; i++)
+                @foreach (var item in Model)
                 {
+
                     <div class="col-lg-3">
-                        <div class="categories__item set-bg" data-setbg="/ogani/img/categories/cat-1.jpg">
-                            <h5><a href="#">Fresh Fruit</a></h5>
+                        <div style="height:140px" class="categories__item set-bg" data-setbg="/uploads/@item.ImageUrl">
+                            <h5><a href="#">Endirimde olanlar</a></h5>
                         </div>
                     </div>
-
                 }
+
+
                 @*<div class="col-lg-3">
                         <div class="categories__item set-bg" data-setbg="/ogani/img/categories/cat-2.jpg">
                             <h5><a href="#">Dried Fruit</a></h5>

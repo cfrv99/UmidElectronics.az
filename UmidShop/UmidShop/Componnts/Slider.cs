@@ -18,7 +18,8 @@ namespace UmidShop.Componnts
 
         public IViewComponentResult Invoke()
         {
-            var data = context.Categories.ToList();
+            var data = context.Images.Where(i=>i.IsSlider).ToList();
+
             return View(data);
         }
     }

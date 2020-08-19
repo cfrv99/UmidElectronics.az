@@ -1,0 +1,36 @@
+﻿@model IEnumerable<UmidShop.Entities.Category>
+
+@{
+    ViewData["Title"] = "GetAllCategories";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Butun Categorialar</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="CreateCategory">Elave Et</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a class="btn btn-danger" asp-action="delete" asp-route-id="@item.Id">Sil</a>
+                <a class="btn btn-info" href="#">Deyish</a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -18,6 +18,7 @@ namespace UmidShop.Componnts
         public IViewComponentResult Invoke()
         {
             var categoryList = context.Categories.ToList();
+            ViewBag.CoverImage = context.Images.Where(i => i.IsCover).Select(i=>i.ImageUrl);
             return View(categoryList);
         }
     }

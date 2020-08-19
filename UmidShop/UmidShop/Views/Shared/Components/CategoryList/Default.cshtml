@@ -4,7 +4,7 @@
 @model List<UmidShop.Entities.Category>
 
 
-<section class="hero" >
+<section class="hero">
     <div class="container">
         <div class="row">
             <div class="col-lg-3" style="margin-top:30px;">
@@ -18,31 +18,61 @@
                         {
                             <li><a asp-action="GetAll" asp-controller="Shop" asp-route-CategoryId="@item.Id">@item.Name</a></li>
                         }
-                        
+
                     </ul>
                 </div>
             </div>
             <div class="col-lg-9">
                 <div class="hero__search">
                     @*<div class="hero__search__form">
-                        <form action="#">
-                            <div class="hero__search__categories">
-                                All Categories
-                                <span class="arrow_carrot-down"></span>
-                            </div>
-                            <input type="text" placeholder="What do yo u need?">
-                            <button type="submit" class="site-btn">SEARCH</button>
-                        </form>
-                    </div>*@
-                    
+                            <form action="#">
+                                <div class="hero__search__categories">
+                                    All Categories
+                                    <span class="arrow_carrot-down"></span>
+                                </div>
+                                <input type="text" placeholder="What do yo u need?">
+                                <button type="submit" class="site-btn">SEARCH</button>
+                            </form>
+                        </div>*@
+
                 </div>
-                <div class="hero__item set-bg" data-setbg="https://lh3.googleusercontent.com/Ne-hnMgwnhsJnuIDpVwLFnWwiSnvBjfpVOEWl6k1CHCarIztylXEIghkiGu6EgYHhZVzpQTY=w1080-h608-p-no-v0">
-                    <div style="background-color:#7fad39;padding:24px;border-radius:10px" class="hero__text">
-                        <span style="color:floralwhite"></span>
-                        <h2 style="color:floralwhite">Umid Electronics <br />100% Orjinal Mallar</h2>
-                        <p style="color:floralwhite">Catdirilma Pulsuz</p>
-                        <a href="#shoppingList" class="primary-btn">Alish-Verish Et</a>
+                @{ 
+                    var covers = ViewBag.CoverImage as IEnumerable<string>;
+                }
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        @for (int i = 0; i <= covers.Count(); i++)
+                        {
+                            <li data-target="#carouselExampleIndicators" data-slide-to="@i.ToString()" @(i == 1 ? "class='active'" : "")></li>
+
+                        }
+                    </ol>
+                    <div class="carousel-inner">
+                        @{ 
+                            int a = 1;
+                        }
+                        @foreach (var item in covers)
+                        {
+
+                            <div class="carousel-@(a == 1 ? "item active" : "item")">
+                                <img style="height:450px;" class="d-block w-100" src="~/uploads/@item" alt="First slide">
+                            </div>
+                            a++;
+                        }
+
+
+
+
+
                     </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
             </div>
         </div>

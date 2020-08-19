@@ -61,6 +61,10 @@ namespace UmidShop
                     pattern: "/",
                     defaults: new { controller = "Shop", action = "GetAll" }
                     );
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                    );
             });
         }
     }

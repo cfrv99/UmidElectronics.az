@@ -13,6 +13,8 @@ namespace UmidShop.Models
         public int Discount { get; set; }
         public string Model { get; set; }
         public string Desc { get; set; }
+        public int StockAmount { get; set; }
+        public string Shipping { get; set; }
         public int CategoryId { get; set; }
         public IFormFile IsMainFile { get; set; }
         public List<IFormFile> Files { get; set; }

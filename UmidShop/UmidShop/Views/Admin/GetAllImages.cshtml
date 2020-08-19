@@ -1,0 +1,47 @@
+﻿@model IEnumerable<UmidShop.Entities.Images>
+
+@{
+    ViewData["Title"] = "GetAllImages";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1>Butun Shekiller:</h1>
+
+<p>
+    <a class="btn btn-success" asp-action="CreateImages">Elave Et</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th>
+                Slider Ucun
+            </th>
+            <th>
+                Cover Ucun
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <img style="width:40px;height:40px;" src="~/uploads/@item.ImageUrl" alt="Alternate Text" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsSlider)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsCover)
+            </td>
+            <td>
+                <a class="btn btn-danger" asp-action="delete" asp-route-id="@item.Id">Sil</a>
+                <a class="btn btn-info" href="#">Deyish</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
