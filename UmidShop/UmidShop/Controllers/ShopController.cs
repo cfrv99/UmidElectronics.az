@@ -25,7 +25,7 @@ namespace UmidShop.Controllers
         public IActionResult GetAll(int? categoryId,string orderBy,decimal? startPrice,decimal? endPrice, string orderByWith = "Price",
             int currentPage=1)
         {
-            int limit = 2;
+            int limit = 10;
 
             var data = context.Products.ToList();
 

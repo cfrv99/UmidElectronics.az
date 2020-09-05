@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -12,12 +14,13 @@ using UmidShop.Models;
 
 namespace UmidShop.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly AppDbContext context;
-        private readonly IHostingEnvironment environment;
+        private readonly IWebHostEnvironment environment;
 
-        public AdminController(IHostingEnvironment environment, AppDbContext context)
+        public AdminController(IWebHostEnvironment environment, AppDbContext context)
         {
             this.context = context;
             this.environment = environment;
@@ -57,6 +60,7 @@ namespace UmidShop.Controllers
                     {
                         var filename = Guid.NewGuid().ToString() + file.FileName.ToString();
                         uploads = Path.Combine(environment.WebRootPath, "uploads");
+                        
                         var pilePath = Path.Combine(uploads, filename);
                         file.CopyTo(new FileStream(pilePath, FileMode.OpenOrCreate));
                         ProductImages images = new ProductImages
